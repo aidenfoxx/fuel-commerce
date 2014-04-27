@@ -11,15 +11,14 @@
  */
 
 /**
- * The Welcome Controller.
+ * The Index Controller.
  *
- * A basic controller example.  Has examples of how to set the
- * response body and status.
+ * A basic controller which defines the homepage.
  *
  * @package  app
- * @extends  Controller
+ * @extends  Controller_Ecommerce
  */
-class Controller_Welcome extends Controller
+class Controller_Index extends Controller_Ecommerce
 {
 
 	/**
@@ -30,19 +29,7 @@ class Controller_Welcome extends Controller
 	 */
 	public function action_index()
 	{
-		return Response::forge(View::forge('welcome/index'));
-	}
-
-	/**
-	 * A typical "Hello, Bob!" type example.  This uses a ViewModel to
-	 * show how to use them.
-	 *
-	 * @access  public
-	 * @return  Response
-	 */
-	public function action_hello()
-	{
-		return Response::forge(ViewModel::forge('welcome/hello'));
+		return View::forge('pages/index.tpl', $this->data);
 	}
 
 	/**
@@ -53,6 +40,6 @@ class Controller_Welcome extends Controller
 	 */
 	public function action_404()
 	{
-		return Response::forge(ViewModel::forge('welcome/404'), 404);
+		return Response::forge(ViewModel::forge('pages/404.tpl'), 404);
 	}
 }

@@ -10,5 +10,6 @@ return array(
 			'username'   => 'root',
 			'password'   => 'root',
 		),
+		'table_prefix' => 'fuel_',
 	),
 );
