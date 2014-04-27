@@ -22,13 +22,15 @@ class Controller_Index extends Controller_Ecommerce
 {
 
 	/**
-	 * The basic welcome message
+	 * Homepage
 	 *
 	 * @access  public
 	 * @return  Response
 	 */
 	public function action_index()
 	{
+		$this->data['title'] = "Home";
+
 		return View::forge('pages/index.tpl', $this->data);
 	}
 

@@ -23,13 +23,10 @@ class Controller_Ecommerce extends Controller
 
 	public $data = array();
 
-	/**
-	 * Define some global template variables
-	 */
 	public function before()
 	{
-		parent::before();
-
 		$this->data['helloworld'] = 'Hello world';
+
+		return parent::before();
 	}
 }
