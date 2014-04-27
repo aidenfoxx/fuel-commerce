@@ -86,9 +86,9 @@ return array(
 		 * 50   => array('name' => 'Moderators', 'roles' => array('user', 'moderator')),
 		 * 100  => array('name' => 'Administrators', 'roles' => array('user', 'moderator', 'admin')),
 		 */
-		0    => array('unverified' => 'Unverified'),	
-		1    => array('user' => 'User'),
-		2    => array('administrator' => 'Parent'),
+		1    => array('unverified' => 'Unverified'),	
+		2    => array('user' => 'User'),
+		3    => array('administrator' => 'Parent'),
 	),
 
 	/**

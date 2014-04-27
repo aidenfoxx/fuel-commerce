@@ -37,19 +37,19 @@
 							<li>{Html::anchor('content/contact', 'Contact')}</li>
 							<li class="divider"></li>
 							{if Auth::check()}
-								{if Auth::member(1)}
-									<li class="has-dropdown">
-										{Html::anchor('account', 'My Account')}
-										<ul class="dropdown">
-											<li>{Html::anchor('account/orders', 'Orders')}</li>
-											{if Auth::member(2)}<li>{Html::anchor('account/users', 'Manage Users')}</li>{/if}
-										</ul>
-									</li>
-								{/if}
+								
+								<li class="has-dropdown">
+									<a>My Account</a>
+									<ul class="dropdown">
+										<li>{Html::anchor('account/details', 'Personal Information')}</li>
+										{if Auth::member(2) || Auth::member(3)}<li>{Html::anchor('account/orders', 'Orders')}</li>{/if}
+										{if Auth::member(3)}<li>{Html::anchor('account/users', 'Manage Users')}</li>{/if}
+									</ul>
+								</li>
 								<li class="divider"></li>
 								<li>{Html::anchor('authentication/logout', 'Logout')}</li>
 							{else}
-								<li>{Html::anchor('authentication', 'Login / Register')}</li>
+								<li>{Html::anchor('authentication', 'Login/Register')}</li>
 							{/if}
 							<li class="divider hide-for-medium-down"></li>
 						</ul>
