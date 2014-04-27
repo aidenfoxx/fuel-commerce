@@ -25,7 +25,7 @@ class Controller_Index extends Controller_Ecommerce
 	 * Homepage
 	 *
 	 * @access  public
-	 * @return  Response
+	 * @return  View
 	 */
 	public function action_index()
 	{
@@ -42,6 +42,8 @@ class Controller_Index extends Controller_Ecommerce
 	 */
 	public function action_404()
 	{
-		return Response::forge(ViewModel::forge('pages/404.tpl'), 404);
+		$this->data['title'] = "Page Not Found";
+
+		return Response::forge(View::forge('pages/404.tpl', $this->data), 404);
 	}
 }

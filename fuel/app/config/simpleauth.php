@@ -87,8 +87,8 @@ return array(
 		 * 100  => array('name' => 'Administrators', 'roles' => array('user', 'moderator', 'admin')),
 		 */
 		0    => array('unverified' => 'Unverified'),	
-		1    => array('user' => 'User', 'roles' => array('checkout')),
-		2    => array('administrator' => 'Parent', 'roles' => array('checkout', 'manageuser', 'manageorder', 'manageproduct')),
+		1    => array('user' => 'User'),
+		2    => array('administrator' => 'Parent'),
 	),
 
 	/**
