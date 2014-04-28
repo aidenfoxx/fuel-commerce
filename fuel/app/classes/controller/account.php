@@ -17,7 +17,7 @@ class Controller_Account extends Controller_Ecommerce
 	 */
 	public function action_details()
 	{
-		if (\Auth::check())
+		if (Auth::check())
 		{
 			if (Input::post())
 			{
@@ -49,34 +49,34 @@ class Controller_Account extends Controller_Ecommerce
 
 						if ($update)
 						{
-							\Session::set_flash('success', 'Your account details have been successfully updated.');
+							Session::set_flash('success', 'Your account details have been successfully updated.');
 						}
 						else
 						{
-							\Session::set_flash('error', \Session::get_flash('error') . '<li>There was a problem creating your account.</li>');
+							Session::set_flash('error', Session::get_flash('error') . '<li>There was a problem creating your account.</li>');
 						}
 					}
 					catch (\SimpleUserUpdateException $e)
 					{
 						if ($e->getCode() == 2)
 						{
-							\Session::set_flash('error', \Session::get_flash('error') . '<li>An account with this email address already exists.</li>');
+							Session::set_flash('error', Session::get_flash('error') . '<li>An account with this email address already exists.</li>');
 						}
 						else
 						{
-							\Session::set_flash('error', \Session::get_flash('error') . '<li>' . $e->getMessage() . '</li>');
+							Session::set_flash('error', Session::get_flash('error') . '<li>' . $e->getMessage() . '</li>');
 						}
 					}
 					catch(SimpleUserWrongPassword $e)
 					{
-						\Session::set_flash('error', \Session::get_flash('error') . '<li>You must confirm your current password before your details can be updated.</li>');
+						Session::set_flash('error', Session::get_flash('error') . '<li>You must confirm your current password before your details can be updated.</li>');
 					}
 
 					$form->repopulate();
 				}
 				else
 				{
-					\Session::set_flash('error', \Session::get_flash('error') . $form->show_errors(array('open_list' => '', 'close_list' => '')));
+					Session::set_flash('error', Session::get_flash('error') . $form->show_errors(array('open_list' => '', 'close_list' => '')));
 				}
 			}
 
@@ -86,7 +86,71 @@ class Controller_Account extends Controller_Ecommerce
 		}
 
 		// If user is not logged in redirect to auth
-		\Response::redirect('authentication');
+		Response::redirect('authentication');
+	}
+
+	/**
+	 * Admin functionality for managing users.
+	 *
+	 * @access  public
+	 * @return  Mixed
+	 */
+	public function action_users()
+	{
+		if (Auth::check())
+		{
+			// Check if they have admin permissions
+			if (Auth::member(2))
+			{
+				if (Input::post('submit')=='Make Admin') DB::update('users')->value('group', '2')->where('id', Input::post('user_id'))->execute();
+				else if (Input::post('submit')=='Revoke Admin')	DB::update('users')->value('group', '1')->where('id', Input::post('user_id'))->execute();
+
+				$this->data['title'] = 'Manage Users';
+				$this->data['users'] = DB::select()->from('users')->execute()->as_array();
+
+				return View::forge('pages/users.tpl', $this->data);
+			}
+			else
+			{
+				Session::set_flash('error', Session::get_flash('error') . '<li>You do not have permission to access this area.</li>');
+				\Response::redirect('/');
+			}
+		}
+
+		// If user is not logged in redirect to auth
+		Response::redirect('authentication');
+	}
+
+	/**
+	 * View past orders.
+	 *
+	 * @access  public
+	 * @return  Mixed
+	 */
+	public function action_orders()
+	{
+		if (Auth::check())
+		{
+			// Check if they have admin permissions get all orders
+			if (Auth::member(2))
+			{
+				$this->data['orders'] = Model_Order::find('all');
+			}
+			else
+			{
+				$this->data['orders'] = Model_Order::find('all', array('where' => array('user_id' => (int) Auth::get_user_id())));
+			}
+			/**
+			* FuelPHP's Modeling is being stupid, so I'll have to use
+			* some hacky code.
+			*/
+
+			$this->data['title'] = 'View Orders';
+			return View::forge('pages/orders.tpl', $this->data);
+		}
+
+		// If user is not logged in redirect to auth
+		Response::redirect('authentication');
 	}
 
 	/**
@@ -97,7 +161,7 @@ class Controller_Account extends Controller_Ecommerce
 	*/
 	private function registration_form()
 	{
-		$form = \Fieldset::forge('registerform');
+		$form = Fieldset::forge('registerform');
 
 		$form->add_model('Model\\Auth_User');
 

@@ -4,7 +4,10 @@ return array(
 	array(
 		'app' => 
 		array(
-			'default' => 0,
+			'default' => 
+			array(
+				0 => '004_create_order_lines',
+			),
 		),
 		'module' => 
 		array(

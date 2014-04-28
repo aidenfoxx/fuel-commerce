@@ -17,16 +17,16 @@ class Controller_Authentication extends Controller_Ecommerce
 	 */
 	public function action_index()
 	{
-		if (\Auth::check())
+		if (Auth::check())
 		{
-			\Session::set_flash('error', \Session::get_flash('error') . '<li>You are already logged in!</li>');
+			Session::set_flash('error', Session::get_flash('error') . '<li>You are already logged in!</li>');
 
-			\Response::redirect('/');
+			Response::redirect('/');
 		}
 
 		$this->data['title'] = "Authentication";
 
-		if (\Input::post('submit')=='Register')
+		if (Input::post('submit')=='Register')
 		{
 			$form = $this->registration_form();
 			$form->validation()->run();
@@ -36,11 +36,11 @@ class Controller_Authentication extends Controller_Ecommerce
 				try
 				{
 					// Update the user
-					$created = \Auth::create_user(
+					$created = Auth::create_user(
 						$form->validated('username'),
 						$form->validated('password'),
 						$form->validated('email'),
-						\Config::get('application.user.default_group', 1),
+						Config::get('application.user.default_group', 1),
 						array(
 							'fullname' => $form->validated('fullname'),
 						)
@@ -48,41 +48,41 @@ class Controller_Authentication extends Controller_Ecommerce
 
 					if ($created)
 					{
-						\Session::set_flash('success', 'Your account has been successfully created.');
+						Session::set_flash('success', 'Your account has been successfully created.');
 
 						// Account created, log the user in
 						Auth::login();
 
-						\Response::redirect_back();
+						Response::redirect_back();
 					}
 					else
 					{
-						\Session::set_flash('error', \Session::get_flash('error') . '<li>There was a problem creating your account.</li>');
+						Session::set_flash('error', Session::get_flash('error') . '<li>There was a problem creating your account.</li>');
 					}
 				}
-				catch (\SimpleUserUpdateException $e)
+				catch (SimpleUserUpdateException $e)
 				{
 					if ($e->getCode() == 2)
 					{
-						\Session::set_flash('error', \Session::get_flash('error') . '<li>An account with this email address already exists.</li>');
+						Session::set_flash('error', Session::get_flash('error') . '<li>An account with this email address already exists.</li>');
 					}
 					elseif ($e->getCode() == 3)
 					{
-						\Session::set_flash('error', \Session::get_flash('error') . '<li>The selected username already exists.</li>');
+						Session::set_flash('error', Session::get_flash('error') . '<li>The selected username already exists.</li>');
 					}
 					else
 					{
-						\Session::set_flash('error', \Session::get_flash('error') . '<li>' . $e->getMessage() . '</li>');
+						Session::set_flash('error', Session::get_flash('error') . '<li>' . $e->getMessage() . '</li>');
 					}
 				}
 				$form->repopulate();
 			}
 			else
 			{
-				\Session::set_flash('error', \Session::get_flash('error') . $form->show_errors(array('open_list' => '', 'close_list' => '')));
+				Session::set_flash('error', Session::get_flash('error') . $form->show_errors(array('open_list' => '', 'close_list' => '')));
 			}
 		}
-		else if (\Input::post('submit')=='Login')
+		else if (Input::post('submit')=='Login')
 		{
 			if (Auth::login())
 			{
@@ -95,13 +95,13 @@ class Controller_Authentication extends Controller_Ecommerce
 					Auth::dont_remember_me();
 				}
 
-				\Session::set_flash('success', 'You have been successfully logged in.');
+				Session::set_flash('success', 'You have been successfully logged in.');
 
-				\Response::redirect_back();
+				Response::redirect_back();
 			}
 			else
 			{
-				\Session::set_flash('error', \Session::get_flash('error') . '<li>Invalid username or password.</li>');
+				Session::set_flash('error', Session::get_flash('error') . '<li>Invalid username or password.</li>');
 			}	
 		}
 
@@ -115,11 +115,11 @@ class Controller_Authentication extends Controller_Ecommerce
 	 */
 	public function action_logout()
 	{
-		if (!\Auth::logout())
+		if (!Auth::logout())
 		{
-			\Auth::dont_remember_me();
+			Auth::dont_remember_me();
 
-			\Session::set_flash('success', 'You have been successfully logged out.');
+			Session::set_flash('success', 'You have been successfully logged out.');
 		}
 		\Response::redirect('/');
 	}
@@ -132,7 +132,7 @@ class Controller_Authentication extends Controller_Ecommerce
 	*/
 	private function registration_form()
 	{
-		$form = \Fieldset::forge('registerform');
+		$form = Fieldset::forge('registerform');
 
 		$form->add_model('Model\\Auth_User');
 

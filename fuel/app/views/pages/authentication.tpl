@@ -21,6 +21,7 @@
 			  			<li><input type="submit" name="submit" value="Register" class="tiny button"></li>
 						<li><input type="reset" value="Clear" class="tiny button secondary"></li>
 					</ul>
+					{Input::server('referer')}
 				</form>
 			</fieldset>
 		</div>

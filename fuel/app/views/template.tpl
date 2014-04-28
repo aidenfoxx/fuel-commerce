@@ -13,7 +13,8 @@
 		'presentation.css'
 	))}
 	{Asset::js(array(
-		'vendor/custom.modernizr.js'
+		'vendor/custom.modernizr.js',
+		'jquery.js'
 	))}
 </head>
 <body>
@@ -32,25 +33,37 @@
 							<li class="divider"></li>
 							<li>{Html::anchor('/', 'Home')}</li>
 							<li class="divider"></li>
-							<li>{Html::anchor('content/about', 'About Us')}</li>
-							<li class="divider"></li>
-							<li>{Html::anchor('content/contact', 'Contact')}</li>
+							<li class="has-dropdown">
+								<a>Products</a>
+								<ul class="dropdown">
+									<li>{Html::anchor('products', 'All Products')}</li>
+									{foreach from=$product_categories item=category}
+										<li>{Html::anchor("products/category/`$category`", $category)}</li>
+									{/foreach}
+								</ul>
+							</li>
 							<li class="divider"></li>
 							{if Auth::check()}
-								
 								<li class="has-dropdown">
 									<a>My Account</a>
 									<ul class="dropdown">
+										<li>{Html::anchor('account/orders', 'Orders')}</li>
+										{if Auth::member(2)}<li>{Html::anchor('account/users', 'Manage Users')}</li>{/if}
+										{if Auth::member(2)}<li>{Html::anchor('products/edit', 'Manage Products')}</li>{/if}
 										<li>{Html::anchor('account/details', 'Personal Information')}</li>
-										{if Auth::member(2) || Auth::member(3)}<li>{Html::anchor('account/orders', 'Orders')}</li>{/if}
-										{if Auth::member(3)}<li>{Html::anchor('account/users', 'Manage Users')}</li>{/if}
+										<li>{Html::anchor('authentication/logout', 'Logout')}</li>
 									</ul>
 								</li>
-								<li class="divider"></li>
-								<li>{Html::anchor('authentication/logout', 'Logout')}</li>
 							{else}
 								<li>{Html::anchor('authentication', 'Login/Register')}</li>
 							{/if}
+							<li class="divider"></li>
+							{if isset($smarty.session.cart)}
+								{$cartNo=count($smarty.session.cart)}
+							{else}
+								{$cartNo=0}
+							{/if}
+							<li>{Html::anchor('checkout/cart', "Shopping Cart (`$cartNo` Items)")}</li>
 							<li class="divider hide-for-medium-down"></li>
 						</ul>
 					</section>
@@ -91,7 +104,6 @@
 		</div>
 	</div>
 	{Asset::js(array(
-		'jquery.js',
 		'foundation.min.js',
 		'foundation/foundation.js',
 		'foundation/foundation.abide.js',

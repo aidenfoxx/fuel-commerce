@@ -31,3 +31,10 @@ html[xmlns] .clearfix {
 /* # Header
 ================================================== */
 header { width: 100%; background-color: #333333; margin-bottom: 40px; }
+
+/* # Products
+================================================== */
+#products .columns { float: left; }
+#product_description #quantity { width: 60px; }
+#cart form { margin: 0; }
+#cart .quantity { width: 60px; margin: 0; }

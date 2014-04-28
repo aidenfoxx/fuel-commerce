@@ -7,17 +7,16 @@
 			<fieldset>
 				<legend>My Details</legend>
 				<form method="post">
-					<label for="fullname">Full Name:</label>
+					<label for="fullname">Full Name</label>
 					<input type="text" id="fullname" name="fullname" value="{if Input::post('fullname')}{Input::post('fullname')}{else}{Auth::get_profile_fields('fullname')}{/if}">
-					<label for="confirm">Current Password:&nbsp;*</label>
+					<label for="confirm">Current Password *</label>
 					<input type="password" id="confirm" name="confirm">
-					<label for="new_password">New Password:</label>
+					<label for="new_password">New Password</label>
 					<input type="password" id="new_password" name="new_password">
-					<label for="email">Email Address:</label>
+					<label for="email">Email Address</label>
 					<input type="text" id="email" name="email" value="{if Input::post('email')}{Input::post('email')}{else}{Auth::get('email')}{/if}">
 					<ul class="button-group">
-			  			<li><input type="submit" name="submit" value="Register" class="tiny button"></li>
-						<li><input type="reset" value="Clear" class="tiny button secondary"></li>
+			  			<li><input type="submit" name="submit" value="Update" class="tiny button"></li>
 					</ul>
 				</form>
 			</fieldset>
