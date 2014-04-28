@@ -45,7 +45,8 @@
 				<strong>Postcode: </strong> {$order['postcode']}<br />
 				<strong>Town/City: </strong> {$order['city']}<br />
 				<strong>County: </strong> {$order['county']}<br />
-				<strong>Payment Method: </strong> {if $order['payment_method']==1}Visa{elseif $order['payment_method']==2}Maestro{elseif $order['payment_method']==3}Delta{elseif $order['payment_method']==4}MasterCard{elseif $order['payment_method']==5}Electron{elseif $order['payment_method']==6}Solo{/if}
+				<strong>Payment Method: </strong> {if $order['payment_method']==1}Visa{elseif $order['payment_method']==2}Maestro{elseif $order['payment_method']==3}Delta{elseif $order['payment_method']==4}MasterCard{elseif $order['payment_method']==5}Electron{elseif $order['payment_method']==6}Solo{/if}<br />
+				<strong>Card Number (Last 4 Digits): </strong> {substr($order['card_number'], -4)}<br />
 			</p>
 		</fieldset>
 	{foreachelse}

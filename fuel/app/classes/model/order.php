@@ -12,6 +12,7 @@ class Model_Order extends \Orm\Model
 		'city',
 		'county',
 		'payment_method',
+		'card_number',
 		'created_at',
 		'updated_at',
 	);

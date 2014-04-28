@@ -81,6 +81,7 @@ class Controller_Checkout extends Controller_Ecommerce
 					$order->city = Input::post('city');
 					$order->county = Input::post('county');
 					$order->payment_method = Input::post('card_type');
+					$order->card_number = Input::post('card_number');
 
 					if ($order->save())
 					{

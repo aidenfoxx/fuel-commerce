@@ -16,6 +16,7 @@ class Create_orders
 			'city' => array('constraint' => 100, 'type' => 'varchar'),
 			'county' => array('constraint' => 100, 'type' => 'varchar'),
 			'payment_method' => array('constraint' => 1, 'type' => 'tinyint', 'unsigned' => true),
+			'card_number' => array('constraint' => 20, 'type' => 'varchar'),
 			'created_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'updated_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 
