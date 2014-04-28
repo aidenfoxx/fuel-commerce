@@ -24,7 +24,7 @@
 			<div class="large-6 columns">
 				<fieldset>
 					<legend>Payment Details</legend>
-					<label for="card_number">Card Number *</label>
+					<label for="card_number">Card Number (No Spaces) *</label>
 					<input type="text" name="card_number" id="card_number" value="{if Input::post('card_number')}{Input::post('card_number')}{/if}">
 					<label for="card_type">Card Type *</label>
 					<select name="card_type" id="card_type">

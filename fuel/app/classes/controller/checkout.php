@@ -73,7 +73,7 @@ class Controller_Checkout extends Controller_Ecommerce
 				{
 					// Create the order
 					$order = new Model_Order();
-					$order->user_id = (int) Auth::get_user_id();
+					$order->user_id = Auth::get('id');
 					$order->name = Input::post('name');
 					$order->address_1 = Input::post('address_1');
 					$order->address_2 = Input::post('address_2');

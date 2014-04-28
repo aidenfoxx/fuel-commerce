@@ -83,7 +83,8 @@ class Controller_Products extends Controller_Ecommerce
 						if (Upload::is_valid())
 						{
 							Upload::save();
-							$product->image = Upload::get_files('product_image')['saved_as'];
+							$file = Upload::get_files('product_image');
+							$product->image = $file['saved_as'];
 						}
 
 						// Save the updated product
@@ -139,7 +140,8 @@ class Controller_Products extends Controller_Ecommerce
 			if (Upload::is_valid())
 			{
 				Upload::save();
-				$image = Upload::get_files('product_image')['saved_as'];
+				$file = Upload::get_files('product_image');
+				$image = $file['saved_as'];
 			}
 			else
 			{

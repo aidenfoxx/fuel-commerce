@@ -138,7 +138,7 @@ class Controller_Account extends Controller_Ecommerce
 			}
 			else
 			{
-				$this->data['orders'] = Model_Order::find('all', array('where' => array('user_id' => (int) Auth::get_user_id())));
+				$this->data['orders'] = Model_Order::find('all', array('where' => array('user_id' => Auth::get('id'))));
 			}
 			/**
 			* FuelPHP's Modeling is being stupid, so I'll have to use
