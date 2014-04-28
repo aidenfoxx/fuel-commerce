@@ -42,6 +42,10 @@
 		{if isset($smarty.session.cart) && count($smarty.session.cart) > 0}
 			<tfoot>
 				<tr>
+					<td colspan="4">Total VAT (20%):</td>
+					<td>£{($totalPrice * .2)|number_format:2}</td>
+				</tr>
+				<tr>
 					<td colspan="4">Total Price:</td>
 					<td>£{$totalPrice|number_format:2}</td>
 				</tr>
