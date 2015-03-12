@@ -15,3 +15,7 @@ The system supports:
 - Order management
 - Multi-level user accounts
 - Basic user management
+
+## Notes
+
+- Make sure to migrate the auth package before running the main migrations
